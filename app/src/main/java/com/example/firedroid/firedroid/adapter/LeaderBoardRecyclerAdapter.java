@@ -36,6 +36,7 @@ public class LeaderBoardRecyclerAdapter extends RecyclerView.Adapter<LeaderBoard
         public TextView itemTitle;
         public TextView itemDetail;
         public TextView currentStars;
+        public TextView rank_number;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -43,6 +44,7 @@ public class LeaderBoardRecyclerAdapter extends RecyclerView.Adapter<LeaderBoard
             itemTitle = (TextView)itemView.findViewById(R.id.item_title);
             itemDetail = (TextView)itemView.findViewById(R.id.item_detail);
             currentStars = (TextView)itemView.findViewById(R.id.currentStars);
+            rank_number = (TextView)itemView.findViewById(R.id.rank_number);
         }
     }
 
@@ -64,6 +66,7 @@ public class LeaderBoardRecyclerAdapter extends RecyclerView.Adapter<LeaderBoard
                 .into(viewHolder.itemImage);
       //  viewHolder.itemImage.setImageResource(R.drawable.android);
         viewHolder.currentStars.setText(String.valueOf(users.get(i).getStars()));
+        viewHolder.rank_number.setText(String.valueOf(i+1));
     }
 
     @Override
