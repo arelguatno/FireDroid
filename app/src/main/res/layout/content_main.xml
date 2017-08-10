@@ -34,6 +34,22 @@
             android:layout_gravity="center"
             android:onClick="aboutButton"
             android:text="About" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/leaderboard"
+            android:layout_width="263dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="ledearboard"
+            android:text="LEADERBOARD" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/logout"
+            android:layout_width="263dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="logoutButton"
+            android:text="LOG OUT" />
     </LinearLayout>
 
     <LinearLayout

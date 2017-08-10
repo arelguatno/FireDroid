@@ -188,10 +188,11 @@ public class MainActivity extends BaseActivity implements
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
     // [END signin]
 
-    private void signOut() {
+    public void logoutButton(View view) {
         // Firebase sign out
         mAuth.signOut();
 
@@ -217,6 +218,11 @@ public class MainActivity extends BaseActivity implements
                         updateUI(null);
                     }
                 });
+    }
+
+    public void ledearboard(View v){
+        Intent intent = new Intent(this, LeaderBoardScreen.class);
+        startActivity(intent);
     }
 
     private void updateUI(final FirebaseUser user) {
@@ -354,16 +360,16 @@ public class MainActivity extends BaseActivity implements
                 if (snapshot.exists()) {
                     // Load Users
                     User r = snapshot.getValue(User.class);
-                    User logInUser = new User(r.getCurrentLevel(), playerName, user.getEmail(), r.getRank(), r.getStars());
+                    User logInUser = new User(r.getCurrentLevel(), playerName, user.getEmail(), r.getRank(), r.getStars(), r.getPhotoUrl());
                     setCurrentLevel(r.getCurrentLevel());
                     setPlayerRank(r.getRank());
                     setUserStars(r.getStars());
                     mFirebaseRef.child(Constants.DB_NODE_USERS_PROFILE).child(user.getUid()).setValue(logInUser);
                 } else {
                     // Create User Profile
-                    User logInUser = new User("new_player", playerName, user.getEmail(),"RJS", 0);
+                    User logInUser = new User("new_player", playerName, user.getEmail(),"NEW", 0,user.getPhotoUrl().toString());
                     setCurrentLevel("new_player");
-                    setPlayerRank("RJS");
+                    setPlayerRank("NEW");
                     setUserStars(0);
                     mFirebaseRef.child(Constants.DB_NODE_USERS_PROFILE).child(user.getUid()).setValue(logInUser);
                 }

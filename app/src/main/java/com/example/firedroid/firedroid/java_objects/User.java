@@ -11,18 +11,18 @@ import java.util.HashMap;
  */
 @IgnoreExtraProperties
 public class User {
-
     private String currentLevel;
-    private String name;
     private String emailAddress;
-    private String rank;
     private HashMap<String, Object> lastUpdate;
+    private String name;
+    private String photoUrl;
+    private String rank;
     private int stars;
 
     public User() {
     }
 
-    public User(String currentLevel, String name, String emailAddress, String rank, int stars) {
+    public User(String currentLevel, String name, String emailAddress, String rank, int stars, String photoUrl) {
         this.currentLevel = currentLevel;
         this.name = name;
         this.emailAddress = emailAddress;
@@ -31,6 +31,7 @@ public class User {
         timestampNowObject.put("timestamp", ServerValue.TIMESTAMP);
         this.lastUpdate = timestampNowObject;
         this.stars = stars;
+        this.photoUrl = photoUrl;
     }
 
     public String getName() {
@@ -66,5 +67,11 @@ public class User {
         return (long) lastUpdate.get("timestamp");
     }
 
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
 
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 }

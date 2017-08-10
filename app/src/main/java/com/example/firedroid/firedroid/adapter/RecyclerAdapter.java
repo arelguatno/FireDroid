@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.example.firedroid.firedroid.ChooseYourLevel;
 import com.example.firedroid.firedroid.R;
+import com.example.firedroid.firedroid.java_objects.User;
+
+import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private ChooseYourLevel r;
@@ -35,6 +38,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public RecyclerAdapter(ChooseYourLevel chooseYourLevel) {
         this.r = chooseYourLevel;
     }
+
+
     class ViewHolder extends RecyclerView.ViewHolder{
 
         public int currentItem;

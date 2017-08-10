@@ -9,29 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".GamePlatform"
-            android:parentActivityName=".GamePlatform"
-            android:label=""></activity>
+            android:label=""
+            android:parentActivityName=".GamePlatform" />
+        <activity
+            android:name=".ChooseYourLevel"
+            android:label="Choose Category"
+            android:parentActivityName=".GamePlatform" />
+        <activity
+            android:name=".PlayerProfile"
+            android:label="Profile" />
 
-        <activity android:name=".ChooseYourLevel"
-            android:parentActivityName=".GamePlatform"
-            android:label="Choose Category"></activity>
-
-        <activity android:name=".PlayerProfile"
-            android:label="Profile"></activity>
-
+        <activity android:name=".LeaderBoardScreen"
+            android:label="Leaderboard"
+            android:parentActivityName=".GamePlatform"></activity>
     </application>
 
 </manifest>
