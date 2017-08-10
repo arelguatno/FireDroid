@@ -30,11 +30,7 @@
             android:label="Choose Category"></activity>
 
         <activity android:name=".PlayerProfile"
-            android:theme="@style/AppTheme.ProfileTheme"
             android:label="Profile"></activity>
-
-        <activity android:name=".CorrectAnswerForm"
-            android:theme="@style/AppTheme.ProfileTheme"></activity>
 
     </application>
 

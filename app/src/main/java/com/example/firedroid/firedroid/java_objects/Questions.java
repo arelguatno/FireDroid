@@ -11,10 +11,12 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class Questions implements Serializable {
     public String answer;
+    public String description;
     public String image1;
     public String image2;
     public String image3;
     public String image4;
+    public String link;
     public String qid;
     public String question;
     public String typeofquestion;
@@ -23,13 +25,15 @@ public class Questions implements Serializable {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Questions(String answer, String id, String image1, String image2, String image3, String image4, String question, String typeofquestion) {
+    public Questions(String answer, String description, String image1, String image2, String image3, String image4, String link, String qid, String question, String typeofquestion) {
         this.answer = answer;
-        this.qid = id;
+        this.description = description;
         this.image1 = image1;
         this.image2 = image2;
         this.image3 = image3;
         this.image4 = image4;
+        this.link = link;
+        this.qid = qid;
         this.question = question;
         this.typeofquestion = typeofquestion;
     }
@@ -96,5 +100,21 @@ public class Questions implements Serializable {
 
     public void setImage4(String image4) {
         this.image4 = image4;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
