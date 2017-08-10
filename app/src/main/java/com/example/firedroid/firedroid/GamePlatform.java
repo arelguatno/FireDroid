@@ -1,11 +1,17 @@
 package com.example.firedroid.firedroid;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +47,8 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
     TextView timer,txtQuestionBox;
     CountDownTimer timer2;
     int categoryLevel;
+    final Context context = this;
+    private Button button;
 
     LinearLayout txtQuestion;
     LinearLayout picQuestions;
@@ -331,14 +339,10 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
                     // Generate new question
                     // Save answered questions
                     mFirebaseRef.child(Constants.DB_ANSWERED_QUESTION).child(getUserUid()).child(getSelectedCategory()).push().child("qid").setValue(getCurrentLevel());
+                    timer2.cancel();
+                    showCustomDialogBox();
                     listOfQuestions.remove(getCurrentIndexQuestion());
                     setCurrentLevel("next_level");
-                    timer2.cancel();
-                    populateQuestion();
-
-                    Intent intent = new Intent(GamePlatform.this, CorrectAnswerForm.class);
-                    GamePlatform.this.startActivity(intent);
-
                 }
             }.start();
 
@@ -403,6 +407,7 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
         }.start();
     }
 
+    // Hardcoded stars ranking. Based on 10 questions each category
     private String getRankName(int stars){
         if(stars >= 1 && stars <= 10){
             return "Bronze";
@@ -427,5 +432,32 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
         }else{
             return "???";
         }
+    }
+
+    private void showCustomDialogBox(){
+        // custom dialog
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        TextView txtDescrption = (TextView) dialog.findViewById(R.id.txtDescrption);
+        txtDescrption.setText(listOfQuestions.get(getCurrentIndexQuestion()).getDescription());
+
+        TextView txtLink =(TextView)dialog.findViewById(R.id.txtLink);
+        txtLink.setClickable(true);
+        txtLink.setMovementMethod(LinkMovementMethod.getInstance());
+        String text = "<a href='"+listOfQuestions.get(getCurrentIndexQuestion()).getLink().toString()+"/'> Click here to learn more </a>";
+        txtLink.setText(Html.fromHtml(text));
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                populateQuestion();
+                populateQuestion();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }
