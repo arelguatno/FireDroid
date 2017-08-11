@@ -47,6 +47,7 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:11.0.4'
     compile 'com.google.firebase:firebase-config:11.0.4'
     compile 'com.google.firebase:firebase-invites:11.0.4'
+    compile 'com.google.firebase:firebase-ads:11.0.4'
 
     // Others
     compile 'com.github.bumptech.glide:glide:4.0.0'

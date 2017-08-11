@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.firedroid.firedroid.java_objects.User;
 import com.example.firedroid.firedroid.utility.Constants;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInvite;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
@@ -42,6 +43,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -63,6 +66,7 @@ public class MainActivity extends BaseActivity implements
     private TextView mDetailTextView;
     LinearLayout tracks;
     private int REQUEST_INVITE = 256;
+    private AdView mAdView;
 
 
     @Override
@@ -77,6 +81,12 @@ public class MainActivity extends BaseActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+
+        MobileAds.initialize(this, "ca-app-pub-1363370537348771~4457729116");
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
 
