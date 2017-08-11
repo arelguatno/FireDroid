@@ -30,11 +30,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         super.onMessageReceived(remoteMessage);
-        Log.d("msg", "onMessageReceived: " + remoteMessage.getData().get("message"));
+        Log.d("msg", "onMessageReceived: " + remoteMessage.getNotification().getBody());
         NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("test")
-                .setContentText(remoteMessage.getData().get("message"));
+                .setContentTitle(remoteMessage.getNotification().getBody());
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
 

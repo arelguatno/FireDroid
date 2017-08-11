@@ -33,8 +33,9 @@
             android:theme="@style/AppTheme.ProfileTheme"
             android:label="Profile"></activity>
 
-        <activity android:name=".CorrectAnswerForm"
-            android:theme="@style/AppTheme.ProfileTheme"></activity>
+        <activity android:name=".LeaderBoardScreen"
+            android:label="Leaderboard"
+            android:parentActivityName=".GamePlatform"></activity>
 
         <service
             android:name=".MyFirebaseMessagingService">

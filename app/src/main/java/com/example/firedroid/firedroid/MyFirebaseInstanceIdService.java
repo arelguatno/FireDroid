@@ -30,12 +30,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-        storeToken(refreshedToken);
     }
 
-    private void storeToken(String token) {
 
-        SharedPref.getInstance(getApplicationContext()).storeToken(token);
-
-    }
 }

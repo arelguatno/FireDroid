@@ -312,11 +312,6 @@ public class MainActivity extends BaseActivity implements
     }
 
 
-    public void leaderboardButton(View v) {
-        Intent intent = new Intent(this, LeaderBoard.class);
-        startActivity(intent);
-    }
-
 
     // Exit Button
     @Override
