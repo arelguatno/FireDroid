@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.text.Html;
+import android.text.InputFilter;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -22,16 +24,22 @@ import com.bumptech.glide.Glide;
 import com.example.firedroid.firedroid.java_objects.Questions;
 import com.example.firedroid.firedroid.java_objects.User;
 import com.example.firedroid.firedroid.utility.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -54,6 +62,11 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
     private String currentLevel = "";
     private TextView txtViewCurrentStars;
     private DatabaseReference mFirebaseRef;
+    private static final String TAG = "GamePlatform";
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private long timer_3star;
+    private long timer_2star;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +84,72 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
         listOfQuestions = (ArrayList<Questions>) getIntent().getSerializableExtra("listOfQuestions");
         categoryLevel = getIntent().getIntExtra("category",1);
 
+        // Initialize Firebase Remote Config.
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        // Define Firebase Remote Config Settings.
+        FirebaseRemoteConfigSettings firebaseRemoteConfigSettings =
+                new FirebaseRemoteConfigSettings.Builder()
+                        .setDeveloperModeEnabled(true)
+                        .build();
+
+        // Define default config values. Defaults are used when fetched config values are not
+        // available. Eg: if an error occurred fetching values from the server.
+
+
+        // Apply config settings and default values.
+        mFirebaseRemoteConfig.setConfigSettings(firebaseRemoteConfigSettings);
+        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
+
+        // Fetch remote config.
+        fetchConfig();
+
         populateQuestion();
+
     }
+
+    public void fetchConfig() {
+        long cacheExpiration = 3600; // 1 hour in seconds
+        // If developer mode is enabled reduce cacheExpiration to 0 so that
+        // each fetch goes to the server. This should not be used in release
+        // builds.
+        if (mFirebaseRemoteConfig.getInfo().getConfigSettings()
+                .isDeveloperModeEnabled()) {
+            cacheExpiration = 0;
+        }
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Make the fetched config available via
+                        // FirebaseRemoteConfig get<type> calls.
+                        mFirebaseRemoteConfig.activateFetched();
+                        applyTimerStar();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // There has been an error fetching the config
+                        Log.w(TAG, "Error fetching config: " +
+                                e.getMessage());
+                        applyTimerStar();
+                    }
+                });
+    }
+
+
+    public void applyTimerStar() {
+        timer_3star = mFirebaseRemoteConfig.getLong("timer_3star");
+        timer_2star = mFirebaseRemoteConfig.getLong("timer_2star");
+        Log.d(TAG, "Timer_3Start is: " + timer_3star);
+        Log.d(TAG, "Timer_2Start is: " + timer_2star);
+
+        timer2.cancel();
+        startTimer(timer_3star, timer_2star);
+    }
+
+
 
     @Override
     protected void onResume() {
@@ -236,7 +313,8 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
         }
 
         updateCurrentLevel();
-        startTimer(previousQuestion);
+
+        startTimer(timer_3star, timer_2star);
     }
 
     private void clearFields() {
@@ -378,15 +456,17 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
         return true;
     }
 
-    private void startTimer(boolean previousQuestion) {
-        timer2 = new CountDownTimer(41000, 1000) {
+    private void startTimer(long timer3star, final long timer2star) {
+
+
+        timer2 = new CountDownTimer(timer3star, 1000) {
             public void onTick(long millisUntilFinished) {
                 setStarScore(3);
                 timer.setText("Answer within " + millisUntilFinished / 1000 + " seconds and get 3 STAR");
             }
 
             public void onFinish() {
-               timer2=  new CountDownTimer(80000, 1000) {
+               timer2=  new CountDownTimer(timer2star, 1000) {
                     public void onTick(long millisUntilFinished) {
                         setStarScore(2);
                         timer.setText("Answer within " + millisUntilFinished / 1000 + " seconds and get 2 STAR");
@@ -453,4 +533,6 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
         });
         dialog.show();
     }
+
+
 }

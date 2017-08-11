@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>timer_3star</key>
+        <value>20000</value>
+    </entry>
+    <entry>
+        <key>timer_2star</key>
+        <value>25000</value>
+    </entry>
+</defaultsMap>
