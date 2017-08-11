@@ -59,6 +59,7 @@ public class MainActivity extends BaseActivity implements
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+    LinearLayout tracks;
 
 
     @Override
@@ -274,9 +275,10 @@ public class MainActivity extends BaseActivity implements
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        LinearLayout tracks = (LinearLayout) menu.findItem(R.id.action_logout).getActionView();
-        ImageView img = tracks.findViewById(R.id.playerPicture2);
-        img.setOnClickListener(new View.OnClickListener() {
+        tracks = (LinearLayout) menu.findItem(R.id.action_logout).getActionView();
+        ImageView img_player = tracks.findViewById(R.id.playerPicture);
+
+        img_player.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, PlayerProfile.class);
@@ -372,10 +374,14 @@ public class MainActivity extends BaseActivity implements
                 setUserUid(user.getUid());
                 setPhotoUrl(user.getPhotoUrl());
 
-                ImageView img_player = (ImageView)findViewById(R.id.playerPicture2);
-                Glide.with(MainActivity.this)
-                        .load(getPhotoUrl())
-                        .into(img_player);
+                try{
+                    ImageView img_player = (ImageView) findViewById(R.id.playerPicture);
+                    Glide.with(MainActivity.this)
+                            .load(getPhotoUrl())
+                            .into(img_player);
+                }catch (Exception e){
+
+                }
 
             }
             @Override
