@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="star_color">#fbff1e</color>
     <color name="star_score">#9d0003</color>
+    <color name="dark_star">#f5f91d</color>
 </resources>

@@ -26,6 +26,7 @@
         android:fontFamily="monospace"
         android:gravity="center"
         android:text="Name"
+        android:textAllCaps="true"
         android:textAlignment="center"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="22sp"
@@ -43,6 +44,7 @@
         android:fontFamily="casual"
         android:gravity="center"
         android:text="Rank"
+        android:textAllCaps="true"
         android:textAlignment="center"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textStyle="bold" />

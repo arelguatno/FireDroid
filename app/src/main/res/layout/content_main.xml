@@ -28,6 +28,14 @@
             android:text="Play GAME" />
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/leaderboard"
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="leaderboardButton"
+            android:text="leaderboard" />
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/about"
             android:layout_width="263dp"
             android:layout_height="wrap_content"

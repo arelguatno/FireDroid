@@ -29,6 +29,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity implements
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
@@ -62,6 +64,8 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         setToFullScreen();
         setContentView(R.layout.activity_main);
@@ -307,13 +311,9 @@ public class MainActivity extends BaseActivity implements
 
     }
 
-    public void exitButton(View v) {
-        onBackPressed();
-    }
 
-
-    public void profileButton(View v) {
-        Intent intent = new Intent(this, PlayerProfile.class);
+    public void leaderboardButton(View v) {
+        Intent intent = new Intent(this, LeaderBoard.class);
         startActivity(intent);
     }
 

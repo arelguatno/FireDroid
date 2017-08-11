@@ -14,6 +14,7 @@ import android.view.WindowManager;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
     static String playerName;
     static String currentLevel;
     static String userUid;
@@ -126,6 +127,14 @@ public class BaseActivity extends AppCompatActivity {
 
     public static void setPlayerRank(String playerRank) {
         BaseActivity.playerRank = playerRank;
+    }
+
+    public static String getPlayerName() {
+        return playerName;
+    }
+
+    public static void setPlayerName(String playerName) {
+        BaseActivity.playerName = playerName;
     }
 
 }
