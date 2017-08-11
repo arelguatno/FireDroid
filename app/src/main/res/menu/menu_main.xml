@@ -7,6 +7,6 @@
         android:id="@+id/action_logout"
         android:orderInCategory="101"
         android:title="Logout"
-        app:actionLayout="@layout/view_alertsbadge"
+        app:actionLayout="@layout/custom_main_menu"
         app:showAsAction="always" />
 </menu>

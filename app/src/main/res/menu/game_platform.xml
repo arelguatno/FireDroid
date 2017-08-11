@@ -13,7 +13,7 @@
     <item
         android:id="@+id/action_user"
         android:title=""
-        app:actionLayout="@layout/view_alertsbadge"
+        app:actionLayout="@layout/custom_star_couting_game_platform"
         app:showAsAction="always" />
 
 </menu>
