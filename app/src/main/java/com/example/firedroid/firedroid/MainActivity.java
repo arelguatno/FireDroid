@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.firedroid.firedroid.java_objects.User;
 import com.example.firedroid.firedroid.utility.Constants;
+import com.google.android.gms.appinvite.AppInvite;
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -60,6 +62,7 @@ public class MainActivity extends BaseActivity implements
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     LinearLayout tracks;
+    private int REQUEST_INVITE = 256;
 
 
     @Override
@@ -88,6 +91,7 @@ public class MainActivity extends BaseActivity implements
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(AppInvite.API)
                 .build();
 
         // [START initialize_auth]
@@ -154,7 +158,28 @@ public class MainActivity extends BaseActivity implements
                 // [END_EXCLUDE]
             }
 
+        }else if (requestCode == REQUEST_INVITE) {
+            if (resultCode == RESULT_OK) {
+                // Check how many invitations were sent and log.
+                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+                Log.d(TAG, "Invitations sent: " + ids.length);
+            } else {
+                // Sending failed or it was canceled, show failure message to the user
+                Log.d(TAG, "Failed to send invitation.");
+            }
         }
+    }
+
+    public void invite(View v){
+        sendInvitation();
+    }
+
+    private void sendInvitation() {
+        Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
+                .setMessage(getString(R.string.invitation_message))
+                .setCallToActionText(getString(R.string.invitation_cta))
+                .build();
+        startActivityForResult(intent, REQUEST_INVITE);
     }
 
     // [END onactivityresult]

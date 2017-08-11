@@ -32,7 +32,7 @@
             android:parentActivityName=".GamePlatform" />
         <activity
             android:name=".ChooseYourLevel"
-            android:label="Choose Category"
+            android:label="Choose Firebase Platform"
             android:parentActivityName=".GamePlatform" />
         <activity
             android:name=".PlayerProfile"

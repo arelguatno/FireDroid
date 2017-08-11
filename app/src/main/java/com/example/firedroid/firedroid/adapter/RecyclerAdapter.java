@@ -21,24 +21,58 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private ChooseYourLevel r;
 
-    private String[] titles = {"Firebase product",
+    private String[] titles = {"Firebase",
             "Android",
-            "Web"};
+            "Web",
+            "IOS",
+            "C++",
+            "Unity"};
 
     private String[] details = {"Difficulty: Easy",
-            "Difficulty: Hard", "Difficulty: Hard"};
+            "Difficulty: Hard",
+            "Difficulty: Hard",
+            "Difficulty: Hard",
+            "Difficulty: Hard",
+            "Difficulty: Hard"};
 
     private int[] images = { R.drawable.firebase_img,
             R.drawable.android,
-            R.drawable.javascript};
+            R.drawable.javascript,
+            R.drawable.ios,
+            R.drawable.cplus,
+            R.drawable.unity};
 
     private String[] requiredStars= {"Click here to play",
-            "Required stars to play :10 ", "Required stars to play :10"};
+            "Click here to play",
+            "Click here to play",
+            "Click here to play",
+            "Click here to play",
+            "Click here to play"};
 
     public RecyclerAdapter(ChooseYourLevel chooseYourLevel) {
         this.r = chooseYourLevel;
     }
 
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.card_layout, viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(v);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        viewHolder.itemTitle.setText(titles[i]);
+        viewHolder.itemDetail.setText(details[i]);
+        viewHolder.itemImage.setImageResource(images[i]);
+        viewHolder.itemRequiredStars.setText(requiredStars[i]);
+    }
+
+    @Override
+    public int getItemCount() {
+        return titles.length;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -63,26 +97,5 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
             });
         }
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.card_layout, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.itemTitle.setText(titles[i]);
-        viewHolder.itemDetail.setText(details[i]);
-        viewHolder.itemImage.setImageResource(images[i]);
-        viewHolder.itemRequiredStars.setText(requiredStars[i]);
-    }
-
-    @Override
-    public int getItemCount() {
-        return titles.length;
     }
 }

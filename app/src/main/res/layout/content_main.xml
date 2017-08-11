@@ -36,12 +36,12 @@
             android:text="LEADERBOARD" />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/about"
+            android:id="@+id/invite"
             android:layout_width="263dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="aboutButton"
-            android:text="About" />
+            android:onClick="invite"
+            android:text="Invite" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/logout"

@@ -4,4 +4,7 @@
     <string name="loading">Loading…</string>
     <string name="title_template_step">Step <xliff:g id="step_number">%1$d</xliff:g>: Lorem
         Ipsum</string>
+    <string name="invitation_title">AppGuess360 Invitation</string>
+    <string name="invitation_message">Hi there, try out this awesome app!</string>
+    <string name="invitation_cta">Install!</string>
 </resources>
