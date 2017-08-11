@@ -330,6 +330,7 @@ public class MainActivity extends BaseActivity implements
 
             @Override
             public void run() {
+                finish();
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
