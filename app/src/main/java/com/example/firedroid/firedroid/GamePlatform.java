@@ -324,7 +324,6 @@ public class GamePlatform extends BaseActivity implements View.OnClickListener {
             mFirebaseRef.child(Constants.DB_NODE_USERS_PROFILE).child(getUserUid()).child("stars").setValue(newStars);
             mFirebaseRef.child(Constants.DB_NODE_USERS_PROFILE).child(getUserUid()).child("rank").setValue(getRankName(newStars));
             setUserStars(newStars);
-            Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show();
 
             // Add slight delay
             new CountDownTimer(500, 1000) {
