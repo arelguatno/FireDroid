@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity implements
         setSupportActionBar(toolbar);
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
 
-        MobileAds.initialize(this, "ca-app-pub-1363370537348771~4457729116");
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544/6300978111");
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
